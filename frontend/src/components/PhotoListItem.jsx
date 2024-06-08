@@ -1,11 +1,11 @@
 import React from "react";
 import "../styles/PhotoListItem.scss";
 
-const PhotoListItem = props => {
-  const {id, imageSource, profile, username, location} = props.sampleData;
+const PhotoListItem = ({sampleData}) => {
+  const {id, imageSource, profile, username, location} = sampleData;
   return (
     <article className='photo-list__item' key={id}>
-      <img src={imageSource} alt='' className='photo-list__image' />
+      <img src={imageSource} alt={"photo by " + username} className='photo-list__image' />
       <div className='photo-list__user-details'>
         <img src={profile} alt={username + " profile photo"} className='photo-list__user-profile' />
         <div>
