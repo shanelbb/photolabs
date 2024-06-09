@@ -7,11 +7,7 @@ const PhotoFavButton = () => {
   const [userFav, setUserFav] = useState(false);
 
   const handleFav = () => {
-    if (!userFav) {
-      setUserFav(true);
-      return;
-    }
-    setUserFav(false);
+    setUserFav(prevUserFav => !prevUserFav);
   };
   return (
     <div className='photo-list__fav-icon' onClick={handleFav}>
