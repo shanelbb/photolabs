@@ -1,11 +1,12 @@
 import React from "react";
 import "../styles/PhotoListItem.scss";
+import PhotoFavButton from "./PhotoFavButton";
 
 const PhotoListItem = ({sampleData}) => {
-  console.log(sampleData);
   const {urls, user, location} = sampleData;
   return (
     <li className='photo-list__item'>
+      <PhotoFavButton />
       <img src={urls.regular} alt={"photo by " + user.name} className='photo-list__image' />
       <div className='photo-list__user-details'>
         <img src={user.profile} alt={user.name + " profile photo"} className='photo-list__user-profile' />
