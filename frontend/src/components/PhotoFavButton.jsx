@@ -1,10 +1,14 @@
-import React, {useCallback, useState} from "react";
+import React, {useEffect, useState} from "react";
 
 import FavIcon from "./FavIcon";
 import "../styles/PhotoFavButton.scss";
 
-const PhotoFavButton = () => {
-  const [userFav, setUserFav] = useState(false);
+const PhotoFavButton = ({initialState}) => {
+  const [userFav, setUserFav] = useState(initialState);
+
+  useEffect(() => {
+    setUserFav(initialState);
+  }, [initialState]);
 
   const handleFav = () => {
     setUserFav(prevUserFav => !prevUserFav);
