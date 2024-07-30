@@ -1,25 +1,29 @@
-import React, {useEffect, useState} from "react";
-
+import React, {useState, useEffect} from "react";
+import PropTypes from "prop-types";
 import FavIcon from "./FavIcon";
-import "../styles/PhotoFavButton.scss";
 
-const PhotoFavButton = ({initialState}) => {
-  const [userFav, setUserFav] = useState(initialState);
+const PhotoFavButton = ({initialSelected, onFavouriteChange}) => {
+  const [isSelected, setIsSelected] = useState(initialSelected);
 
   useEffect(() => {
-    setUserFav(initialState);
-  }, [initialState]);
+    setIsSelected(initialSelected);
+  }, [initialSelected]);
 
-  const handleFav = () => {
-    setUserFav(prevUserFav => !prevUserFav);
+  const handleClick = () => {
+    setIsSelected(prevSelected => !prevSelected);
+    onFavouriteChange(!isSelected);
   };
+
   return (
-    <div className='photo-list__fav-icon' onClick={handleFav}>
-      <div className='photo-list__fav-icon-svg'>
-        <FavIcon selected={userFav} />
-      </div>
-    </div>
+    <button className='img-fav-btn' onClick={handleClick} style={{background: "none", border: "none", cursor: "pointer"}}>
+      <FavIcon selected={isSelected} />
+    </button>
   );
+};
+
+PhotoFavButton.propTypes = {
+  initialSelected: PropTypes.bool.isRequired,
+  onFavouriteChange: PropTypes.func.isRequired,
 };
 
 export default PhotoFavButton;

@@ -1,15 +1,18 @@
 import React from "react";
-import "../styles/TopicList.scss";
 import TopicListItem from "./TopicListItem";
+import PropTypes from "prop-types";
+import "../styles/TopicList.scss";
 
-const TopicList = ({topics}) => {
-  return (
-    <div className='top-nav-bar__topic-list'>
-      {topics.map(topic => {
-        return <TopicListItem topicData={topic} key={topic.id} />;
-      })}
-    </div>
-  );
+const TopicList = ({topics}) => (
+  <div className='top-nav-bar__topic-list'>
+    {topics.map(topic => (
+      <TopicListItem key={topic.id} title={topic.title} />
+    ))}
+  </div>
+);
+
+TopicList.propTypes = {
+  topics: PropTypes.array.isRequired,
 };
 
 export default TopicList;

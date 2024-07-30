@@ -1,34 +1,45 @@
-import React from "react";
-import "./App.scss";
+import React, {useState, useEffect} from "react";
 import HomeRoute from "routes/HomeRoute";
-import {useState, useEffect} from "react";
-import photoData from "mocks/photos";
-import topicData from "mocks/topics";
+import photosData from "mocks/photos"; // Import photos mock data
+import topicsData from "mocks/topics"; // Import topics mock data
+import PhotoDetailsModal from "routes/PhotoDetailsModal";
+import {FavPhotosProvider} from "globalState/FavPhotosContext"; // Correct import
 
-// Note: Rendering a single component to build components in isolation
 const App = () => {
   const [photos, setPhotos] = useState([]);
   const [topics, setTopics] = useState([]);
   const [favPhotos, setFavPhotos] = useState([]);
+  const [selectedPhoto, setSelectedPhoto] = useState(null); // Add state for selected photo
 
   useEffect(() => {
     // Simulate asynchronous fetching of photos data
     setTimeout(() => {
-      setPhotos(photoData);
-    }, 5);
+      setPhotos(photosData);
+    }, 1000);
 
     // Simulate asynchronous fetching of topics data
     setTimeout(() => {
-      setTopics(topicData);
-    }, 5);
+      setTopics(topicsData);
+    }, 1000);
   }, []);
 
-  const toggleFavPhoto = () => {};
+  const toggleFavPhoto = photo => {
+    // Add functionality here if needed, or use context
+  };
+
+  const handlePhotoClick = photo => {
+    setSelectedPhoto(photo);
+  };
+
+  const closeModal = () => {
+    setSelectedPhoto(null);
+  };
 
   return (
-    <div className='App'>
-      <HomeRoute key={photos.id} topics={topics} photos={photos} toggleFavPhoto={toggleFavPhoto} favPhotos={favPhotos} />
-    </div>
+    <FavPhotosProvider>
+      <HomeRoute photos={photos} topics={topics} toggleFavPhoto={toggleFavPhoto} favPhotos={favPhotos} onPhotoClick={handlePhotoClick} />
+      {selectedPhoto && <PhotoDetailsModal photo={selectedPhoto} closeModal={closeModal} />}
+    </FavPhotosProvider>
   );
 };
 
