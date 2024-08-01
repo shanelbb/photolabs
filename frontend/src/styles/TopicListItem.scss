@@ -3,16 +3,14 @@
   margin-left: 24px;
 }
 
-.topic-list__item a {
-  color: #2b2b2b;
+.topic-list__item span {
+  font-size: 18px;
   text-decoration: none;
-  span {
-    font-size: 18px;
-    font-weight: 500;
+  font-weight: 500;
+  color: #2b2b2b;
 
-    &:hover {
-      text-decoration: overline;
-      color: #111;
-    }
+  &:hover {
+    text-decoration: overline;
+    color: #111;
   }
 }

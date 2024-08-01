@@ -1,33 +1,27 @@
 import React, {useState, useEffect} from "react";
 import HomeRoute from "routes/HomeRoute";
-import photosData from "mocks/photos"; // Import photos mock data
-import topicsData from "mocks/topics"; // Import topics mock data
-import PhotoDetailsModal from "routes/PhotoDetailsModal";
-import {FavPhotosProvider} from "globalState/FavPhotosContext"; // Correct import
+import photosData from "mocks/photos";
+import topicsData from "mocks/topics";
+import PhotoDetailsModal from "./routes/PhotoDetailsModal";
+
+import {FavPhotosProvider} from "globalState/FavPhotosContext";
 
 const App = () => {
   const [photos, setPhotos] = useState([]);
   const [topics, setTopics] = useState([]);
   const [favPhotos, setFavPhotos] = useState([]);
-  const [selectedPhoto, setSelectedPhoto] = useState(null); // Add state for selected photo
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
 
   useEffect(() => {
-    // Simulate asynchronous fetching of photos data
-    setTimeout(() => {
-      setPhotos(photosData);
-    }, 1000);
-
-    // Simulate asynchronous fetching of topics data
-    setTimeout(() => {
-      setTopics(topicsData);
-    }, 1000);
+    setPhotos(photosData);
+    setTopics(topicsData);
   }, []);
 
   const toggleFavPhoto = photo => {
-    // Add functionality here if needed, or use context
+    setFavPhotos(prevFavPhotos => (prevFavPhotos.some(favPhoto => favPhoto.id === photo.id) ? prevFavPhotos.filter(favPhoto => favPhoto.id !== photo.id) : [...prevFavPhotos, photo]));
   };
 
-  const handlePhotoClick = photo => {
+  const openModal = photo => {
     setSelectedPhoto(photo);
   };
 
@@ -37,8 +31,8 @@ const App = () => {
 
   return (
     <FavPhotosProvider>
-      <HomeRoute photos={photos} topics={topics} toggleFavPhoto={toggleFavPhoto} favPhotos={favPhotos} onPhotoClick={handlePhotoClick} />
-      {selectedPhoto && <PhotoDetailsModal photo={selectedPhoto} closeModal={closeModal} />}
+      <HomeRoute photos={photos} topics={topics} toggleFavPhoto={toggleFavPhoto} favPhotos={favPhotos} openModal={openModal} />
+      {selectedPhoto && <PhotoDetailsModal photo={selectedPhoto} closeModal={closeModal} toggleFavPhoto={toggleFavPhoto} favPhotos={favPhotos} openModal={openModal} />}
     </FavPhotosProvider>
   );
 };
