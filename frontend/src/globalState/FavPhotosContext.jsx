@@ -1,8 +1,8 @@
-import React, {createContext, useState} from "react";
+import React, { createContext, useState } from "react";
 
 export const FavPhotosContext = createContext();
 
-export const FavPhotosProvider = ({children}) => {
+export const FavPhotosProvider = ({ children }) => {
   const [favPhotos, setFavPhotos] = useState([]);
 
   const toggleFavPhoto = photo => {
@@ -15,5 +15,5 @@ export const FavPhotosProvider = ({children}) => {
     });
   };
 
-  return <FavPhotosContext.Provider value={{favPhotos, toggleFavPhoto}}>{children}</FavPhotosContext.Provider>;
+  return <FavPhotosContext.Provider value={{ favPhotos, toggleFavPhoto }}>{children}</FavPhotosContext.Provider>;
 };

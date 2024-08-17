@@ -1,11 +1,11 @@
-import React, {useContext, useState, useEffect} from "react";
+import React, { useContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import {FavPhotosContext} from "globalState/FavPhotosContext";
+import { FavPhotosContext } from "globalState/FavPhotosContext";
 import PhotoFavButton from "./PhotoFavButton";
 import "../styles/PhotoListItem.scss";
 
-const PhotoListItem = ({photo, openModal}) => {
-  const {favPhotos, toggleFavPhoto} = useContext(FavPhotosContext);
+const PhotoListItem = ({ photo, openModal }) => {
+  const { favPhotos, toggleFavPhoto } = useContext(FavPhotosContext);
   const isInitiallyFav = favPhotos.some(favPhoto => favPhoto.id === photo.id);
 
   const [isFav, setIsFav] = useState(isInitiallyFav);
@@ -23,7 +23,7 @@ const PhotoListItem = ({photo, openModal}) => {
     return <div className='photo-list__item--error'>Photo not available</div>;
   }
 
-  const {id = "N/A", location: {city = "Unknown City", country = "Unknown Country"} = {}, urls: {regular: imageSource = "default-image.jpg"} = {}, user: {name = "Unknown User", profile = "default-profile.jpg"} = {}} = photo;
+  const { id = "N/A", location: { city = "Unknown City", country = "Unknown Country" } = {}, urls: { regular: imageSource = "default-image.jpg" } = {}, user: { name = "Unknown User", profile = "default-profile.jpg" } = {} } = photo;
 
   return (
     <div className='photo-list__item' onClick={() => openModal(photo)}>
@@ -47,7 +47,7 @@ const PhotoListItem = ({photo, openModal}) => {
 
 PhotoListItem.propTypes = {
   photo: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired, // Accept both string and number
     location: PropTypes.shape({
       city: PropTypes.string.isRequired,
       country: PropTypes.string.isRequired,

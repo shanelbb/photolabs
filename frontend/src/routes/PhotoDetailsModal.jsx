@@ -5,14 +5,14 @@ import PhotoFavButton from "components/PhotoFavButton";
 import "../styles/PhotoDetailsModal.scss";
 import closeSymbol from "../assets/closeSymbol.svg";
 
-const PhotoDetailsModal = ({photo, closeModal, toggleFavPhoto, favPhotos, openModal}) => {
+const PhotoDetailsModal = ({ photo, closeModal, toggleFavPhoto, favPhotos, openModal }) => {
   if (!photo) return null;
 
   const {
-    urls: {full},
-    user: {name, profile},
+    urls: { full },
+    user: { name, profile },
     location,
-    similarPhotos = [],
+    similar_photos = [],
   } = photo;
 
   const isFavourite = photoId => favPhotos.some(favPhoto => favPhoto.id === photoId);
@@ -41,7 +41,7 @@ const PhotoDetailsModal = ({photo, closeModal, toggleFavPhoto, favPhotos, openMo
         <div className='photo-details-modal__similar-photos'>
           <p className='photo-details-modal__similar-photos-title'>Similar Photos</p>
           <div className='photo-details-modal__similar-photos-grid'>
-            {Object.values(similarPhotos).map(similarPhoto => (
+            {similar_photos.map(similarPhoto => (
               <PhotoListItem key={similarPhoto.id} photo={similarPhoto} toggleFavPhoto={toggleFavPhoto} isFav={isFavourite(similarPhoto.id)} openModal={openModal} />
             ))}
           </div>
@@ -64,7 +64,7 @@ PhotoDetailsModal.propTypes = {
       city: PropTypes.string.isRequired,
       country: PropTypes.string.isRequired,
     }).isRequired,
-    similarPhotos: PropTypes.object.isRequired,
+    similar_photos: PropTypes.array.isRequired,
   }).isRequired,
   closeModal: PropTypes.func.isRequired,
   toggleFavPhoto: PropTypes.func.isRequired,

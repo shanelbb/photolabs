@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import PhotoListItem from "./PhotoListItem";
 import "../styles/PhotoList.scss";
 
-const PhotoList = ({photos, toggleFavPhoto, favPhotos, openModal}) => {
+const PhotoList = ({ photos, toggleFavPhoto, favPhotos, openModal }) => {
   return (
     <div className='photo-list'>
       {photos.map(photo => (

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import FavIcon from "./FavIcon";
 import "../styles/PhotoFavButton.scss";
 
-const PhotoFavButton = ({onFavouriteChange, initialSelected}) => {
+const PhotoFavButton = ({ onFavouriteChange, initialSelected }) => {
   return (
     <button
       className={`img-fav-btn ${initialSelected ? "selected" : ""}`}
