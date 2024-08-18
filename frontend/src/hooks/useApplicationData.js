@@ -1,6 +1,5 @@
 import { useReducer, useEffect } from "react";
 
-// Define the actions
 export const ACTIONS = {
     FAV_PHOTO_ADDED: "FAV_PHOTO_ADDED",
     FAV_PHOTO_REMOVED: "FAV_PHOTO_REMOVED",
@@ -14,69 +13,35 @@ export const ACTIONS = {
     SET_PHOTOS_BY_TOPIC: "SET_PHOTOS_BY_TOPIC",
 };
 
-// Create the reducer function
-const reducer = function (state, action) {
+function reducer(state, action) {
     switch (action.type) {
         case ACTIONS.FAV_PHOTO_ADDED:
-            return {
-                ...state,
-                favPhotoIds: [...state.favPhotoIds, action.payload],
-            };
+            return { ...state, favPhotoIds: [...state.favPhotoIds, action.payload] };
         case ACTIONS.FAV_PHOTO_REMOVED:
-            return {
-                ...state,
-                favPhotoIds: state.favPhotoIds.filter(id => id !== action.payload),
-            };
+            return { ...state, favPhotoIds: state.favPhotoIds.filter(id => id !== action.payload) };
         case ACTIONS.SET_PHOTO_DATA:
-            return {
-                ...state,
-                photos: action.payload,
-                error: null,
-            };
+            return { ...state, photos: action.payload, error: null };
         case ACTIONS.SET_TOPIC_DATA:
-            return {
-                ...state,
-                topics: action.payload,
-                error: null,
-            };
+            return { ...state, topics: action.payload, error: null };
         case ACTIONS.SELECT_PHOTO:
-            return {
-                ...state,
-                selectedPhoto: action.payload,
-            };
+            return { ...state, selectedPhoto: action.payload };
         case ACTIONS.CLOSE_PHOTO_DETAILS:
-            return {
-                ...state,
-                selectedPhoto: null,
-            };
+            return { ...state, selectedPhoto: null };
         case ACTIONS.SET_ERROR:
-            return {
-                ...state,
-                error: action.payload,
-            };
+            return { ...state, error: action.payload };
         case ACTIONS.SET_CURRENT_TOPIC:
-            return {
-                ...state,
-                currentTopic: action.payload,
-            };
+            return { ...state, currentTopic: action.payload };
         case ACTIONS.SET_PHOTOS_BY_TOPIC:
-            return {
-                ...state,
-                photos: action.payload,
-                error: null,
-            };
+            return { ...state, photos: action.payload, error: null };
         default:
-            throw new Error(`Tried to reduce with unsupported action type: ${action.type}`);
+            throw new Error(`Unhandled action type: ${action.type}`);
     }
-};
+}
 
-// Create a helper function for fetching data
 const fetchData = async (url, actionType, dispatch) => {
     try {
         const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
-        }
+        if (!response.ok) throw new Error("Network response was not ok");
         const data = await response.json();
         dispatch({ type: actionType, payload: data });
     } catch (error) {
@@ -84,7 +49,6 @@ const fetchData = async (url, actionType, dispatch) => {
     }
 };
 
-// Implement the useApplicationData hook
 const useApplicationData = () => {
     const initialState = {
         photos: [],
@@ -99,39 +63,18 @@ const useApplicationData = () => {
 
     useEffect(() => {
         fetchData("/api/photos", ACTIONS.SET_PHOTO_DATA, dispatch);
-    }, []);
-
-    useEffect(() => {
         fetchData("/api/topics", ACTIONS.SET_TOPIC_DATA, dispatch);
     }, []);
 
     const toggleFavPhoto = photoId => {
-        if (state.favPhotoIds.includes(photoId)) {
-            dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, payload: photoId });
-        } else {
-            dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: photoId });
-        }
+        const actionType = state.favPhotoIds.includes(photoId) ? ACTIONS.FAV_PHOTO_REMOVED : ACTIONS.FAV_PHOTO_ADDED;
+        dispatch({ type: actionType, payload: photoId });
     };
 
-    const openModal = photo => {
-        dispatch({ type: ACTIONS.SELECT_PHOTO, payload: photo });
-    };
-
-    const closeModal = () => {
-        dispatch({ type: ACTIONS.CLOSE_PHOTO_DETAILS });
-    };
-
+    const openModal = photo => dispatch({ type: ACTIONS.SELECT_PHOTO, payload: photo });
+    const closeModal = () => dispatch({ type: ACTIONS.CLOSE_PHOTO_DETAILS });
     const fetchPhotosByTopic = async topicId => {
-        try {
-            const response = await fetch(`http://localhost:8001/api/topics/photos/${topicId}`);
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            const data = await response.json();
-            dispatch({ type: ACTIONS.SET_PHOTOS_BY_TOPIC, payload: data });
-        } catch (error) {
-            dispatch({ type: ACTIONS.SET_ERROR, payload: error.message });
-        }
+        await fetchData(`http://localhost:8001/api/topics/photos/${topicId}`, ACTIONS.SET_PHOTOS_BY_TOPIC, dispatch);
     };
 
     const setCurrentTopic = topicId => {
@@ -139,13 +82,7 @@ const useApplicationData = () => {
         fetchPhotosByTopic(topicId);
     };
 
-    return {
-        state,
-        updateToFavPhotoIds: toggleFavPhoto,
-        onPhotoSelect: openModal,
-        onClosePhotoDetailsModal: closeModal,
-        setCurrentTopic,
-    };
+    return { state, updateToFavPhotoIds: toggleFavPhoto, onPhotoSelect: openModal, onClosePhotoDetailsModal: closeModal, setCurrentTopic };
 };
 
 export default useApplicationData;

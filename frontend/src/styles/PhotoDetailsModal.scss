@@ -1,111 +1,115 @@
 .photo-details-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
 .photo-details-modal__content {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-  max-width: 800px;
-  width: 90%;
-  max-height: 90vh;
-  overflow-y: auto;
-  position: relative;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 800px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
 }
 
 .photo-details-modal__close-button {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: none;
-  border: none;
-  cursor: pointer;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 .photo-details-modal__close-button img {
-  width: 25px;
-  height: 25px;
+    width: 25px;
+    height: 25px;
 }
 
 .photo-details-modal__image-container {
-  position: relative;
-  display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
 .photo-details-modal__image {
-  max-width: 100%;
-  max-height: 50vh;
-  margin-bottom: 20px;
+    max-width: 700px;
+    max-height: 50vh;
+    margin-bottom: 20px;
 }
 
 .photo-details-modal__fav-button {
-  position: absolute;
-  top: 10px;
-  left: 10px; /* Position at top left */
-  background: none;
-  border: none;
-  cursor: pointer;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 .photo-details-modal__fav-button img {
-  width: 25px;
-  height: 25px;
+    width: 25px;
+    height: 25px;
 }
 
 .photo-details-modal__info {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
 }
 
 .photo-details-modal__profile-image {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  margin-right: 15px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 15px;
+    object-fit: cover;
 }
 
 .photo-details-modal__text-info {
-  text-align: left;
+    text-align: left;
 }
 
 .photo-details-modal__user-name {
-  font-size: 22px;
-  font-weight: bold;
-  color: #333;
-  margin: 0;
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
 }
 
 .photo-details-modal__location {
-  font-size: 18px;
-  color: #666;
-  margin: 0;
+    font-size: 18px;
+    color: #666;
+    margin: 0;
 }
 
 .photo-details-modal__similar-photos {
-  margin-top: 20px;
-  text-align: left;
+    margin-top: 20px;
+    text-align: center;
 }
 
 .photo-details-modal__similar-photos-title {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    margin-top: 40px;
 }
 
 .photo-details-modal__similar-photos-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
 }

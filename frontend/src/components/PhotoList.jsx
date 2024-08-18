@@ -3,21 +3,26 @@ import PropTypes from "prop-types";
 import PhotoListItem from "./PhotoListItem";
 import "../styles/PhotoList.scss";
 
-const PhotoList = ({ photos, toggleFavPhoto, favPhotos, openModal }) => {
-  return (
+const PhotoList = ({ photos, favPhotos, openModal }) => (
     <div className='photo-list'>
-      {photos.map(photo => (
-        <PhotoListItem key={photo.id} photo={photo} toggleFavPhoto={toggleFavPhoto} isFav={favPhotos && favPhotos.some(favPhoto => favPhoto.id === photo.id)} openModal={openModal} />
-      ))}
+        {photos.map(photo => (
+            <PhotoListItem key={photo.id} photo={photo} isFav={favPhotos.some(favPhoto => favPhoto.id === photo.id)} openModal={openModal} />
+        ))}
     </div>
-  );
-};
+);
 
 PhotoList.propTypes = {
-  photos: PropTypes.array.isRequired,
-  toggleFavPhoto: PropTypes.func.isRequired,
-  favPhotos: PropTypes.array.isRequired,
-  openModal: PropTypes.func.isRequired,
+    photos: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        })
+    ).isRequired,
+    favPhotos: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        })
+    ).isRequired,
+    openModal: PropTypes.func.isRequired,
 };
 
 export default PhotoList;

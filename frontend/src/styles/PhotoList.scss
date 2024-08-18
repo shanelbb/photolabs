@@ -1,14 +1,14 @@
 .photo-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  grid-gap: 20px 10px;
-  list-style-type: none;
-  margin: 30px;
-  padding: 0px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-gap: 20px 10px;
+    list-style-type: none;
+    margin: 30px;
+    padding: 0px;
 }
 
 .photo-list:after {
-  content: "";
-  flex: 0 1 30%;
-  margin: 5px;
+    content: "";
+    flex: 0 1 30%;
+    margin: 5px;
 }
