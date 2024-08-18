@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node ./src/index.js",
     "error": "TEST_ERROR=true node ./src/index.js",
-    "reset": "psql -U development -d photolabs_development < ./src/db/schema/create.sql && psql -U development -d photolabs_development < ./src/db/schema/development.sql"
+    "reset": "psql -U development -d photolabs_development < ./src/db/schema/create.sql && psql -U development -d photolabs_development < ./src/db/schema/development.sql",
+    "db:create": "createdb -h localhost -U labber photolabs_development",
+    "db:seed": "psql -h localhost -U labber -d photolabs_development -f ./src/db/schema/development.sql"
   },
   "author": "",
   "license": "ISC",
